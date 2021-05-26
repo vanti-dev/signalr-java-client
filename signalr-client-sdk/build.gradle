@@ -1,4 +1,31 @@
+plugins {
+    id 'maven-publish'
+}
+
 apply plugin: 'java'
+
+group = 'thirdparty.github.signalr'
+version = '1.0-vanti'
+
+publishing {
+    publications {
+        javaClient(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+      maven {
+        name = 'nexus'
+        url = 'https://nexus.vanti.co.uk/repository/maven-releases/'
+        credentials {
+          // define these in ~/.gradle/gradle.properties
+          username = "$nexusUser"
+          password = "$nexusPassword"
+        }
+      }
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
