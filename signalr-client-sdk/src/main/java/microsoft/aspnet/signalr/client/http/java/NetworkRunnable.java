@@ -6,6 +6,7 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.http.java;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -75,6 +76,9 @@ class NetworkRunnable implements Runnable {
                     mResponseStream = mConnection.getInputStream();
                 } else {
                     mResponseStream = mConnection.getErrorStream();
+                    if (mResponseStream == null) {
+                      mResponseStream = new ByteArrayInputStream(new byte[0]);
+                    }
                 }
             }
         
